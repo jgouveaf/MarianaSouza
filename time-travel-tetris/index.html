@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Travel Tetris</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="era-1">
+    <div id="game-container">
+        <div id="header">
+            <h1 id="era-title">Era: Pré-História</h1>
+            <div id="clock">00:00:00</div>
+        </div>
+        
+        <div id="content">
+            <div id="info">
+                <div class="info-box">Pontuação<br><span id="score">0</span></div>
+                <div class="info-box">Nível<br><span id="level">1</span></div>
+                <div class="info-box">Próxima<br>
+                    <canvas id="next-canvas" width="80" height="80"></canvas>
+                </div>
+            </div>
+            
+            <div id="game-board-container">
+                <canvas id="tetris" width="240" height="400"></canvas>
+            </div>
+        </div>
+
+        <div id="controls">
+            <button id="btn-left">←</button>
+            <button id="btn-rotate">↻</button>
+            <button id="btn-right">→</button>
+            <button id="btn-down">↓</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

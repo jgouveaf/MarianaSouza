@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&family=VT323&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Share Tech Mono', monospace;
+    transition: background 1s ease, color 1s ease;
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 1s ease;
+}
+
+#header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#era-title {
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    transition: text-shadow 1s ease;
+}
+
+#clock {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: all 1s ease;
+}
+
+#content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+#info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-box {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    transition: all 1s ease;
+}
+
+#score, #level {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#game-board-container {
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 1s ease;
+}
+
+canvas {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: all 1s ease;
+}
+
+#controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+button:active {
+    transform: scale(0.9);
+}
+
+/* === ERAS THEMES === */
+
+/* Era 1: Stone Age */
+body.era-1 {
+    background: #3e3e3e; /* Dark stone */
+    color: #e0d5c1;
+    font-family: 'VT323', monospace;
+}
+body.era-1 #game-container {
+    background: #2a2a2a;
+    border: 5px solid #5a5a5a;
+    box-shadow: 10px 10px 0 #1a1a1a;
+}
+body.era-1 .info-box {
+    background: #4a4a4a;
+    border: 2px solid #6a6a6a;
+}
+body.era-1 button {
+    background: #5a5a5a;
+    color: #e0d5c1;
+    border-bottom: 5px solid #3a3a3a;
+}
+
+/* Era 2: Medieval / Renaissance */
+body.era-2 {
+    background: #5c4033; /* Wood */
+    color: #f4e4bc;
+    font-family: 'Georgia', serif;
+}
+body.era-2 #game-container {
+    background: #3e2819;
+    border: 5px solid #8b5a2b;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+body.era-2 .info-box {
+    background: #4e3422;
+    border: 2px solid #bc8f8f;
+}
+body.era-2 button {
+    background: #8b5a2b;
+    color: #f4e4bc;
+    border: 2px solid #cd853f;
+}
+body.era-2 #clock {
+    font-style: italic;
+}
+
+/* Era 3: Industrial / Steampunk */
+body.era-3 {
+    background: #2b2520;
+    color: #cc9933; /* Brass/Gold */
+    font-family: 'Times New Roman', Times, serif;
+}
+body.era-3 #game-container {
+    background: #1a1612;
+    border: 5px solid #8a6327;
+    box-shadow: 0 0 15px #cc9933;
+}
+body.era-3 .info-box {
+    background: #3d2f23;
+    border: 2px dashed #b58830;
+}
+body.era-3 button {
+    background: #8a6327;
+    color: #1a1612;
+    border-radius: 50%;
+    border: 3px double #d4af37;
+}
+
+/* Era 4: Retro 80s */
+body.era-4 {
+    background: #0f0c29;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    color: #ff00ff;
+    font-family: 'Press Start 2P', cursive;
+}
+body.era-4 span, p, h1, div { font-family: 'Share Tech Mono'; }
+body.era-4 #era-title { font-family: 'Press Start 2P', cursive; font-size: 16px; }
+body.era-4 #game-container {
+    background: rgba(0, 0, 0, 0.7);
+    border: 4px solid #00ffff;
+    box-shadow: 0 0 10px #00ffff, inset 0 0 10px #ff00ff;
+}
+body.era-4 .info-box {
+    background: transparent;
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 5px #ff00ff;
+}
+body.era-4 button {
+    background: #00ffff;
+    color: #000;
+    border: none;
+    box-shadow: 0 5px 0 #008080;
+}
+
+/* Era 5: Future / Cyberpunk */
+body.era-5 {
+    background: #000411;
+    color: #00ffcc;
+    font-family: 'Share Tech Mono', monospace;
+}
+body.era-5 #game-container {
+    background: rgba(0, 15, 30, 0.9);
+    border: 1px solid #00ffcc;
+    box-shadow: 0 0 20px rgba(0,255,204,0.4);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+body.era-5 .info-box {
+    background: rgba(0, 255, 204, 0.1);
+    border: 1px solid rgba(0, 255, 204, 0.5);
+    border-radius: 10px;
+}
+body.era-5 button {
+    background: transparent;
+    color: #00ffcc;
+    border: 1px solid #00ffcc;
+    border-radius: 10px;
+}
+body.era-5 button:hover {
+    background: #00ffcc;
+    color: #000;
+}
+
+@media (max-width: 600px) {
+    #content {
+        flex-direction: column;
+        align-items: center;
+    }
+    #info {
+        flex-direction: row;
+    }
+}
