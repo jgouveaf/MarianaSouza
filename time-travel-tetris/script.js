@@ -81,7 +81,7 @@ function drawMatrix(matrix, offset, ctx = context) {
             if (value !== 0) {
                 ctx.fillStyle = colors[value];
                 ctx.fillRect(x + offset.x, y + offset.y, 1, 1);
-                
+
                 // Add a border for better visibility depending on era
                 ctx.strokeStyle = 'rgba(0,0,0,0.5)';
                 ctx.lineWidth = 0.05;
@@ -94,7 +94,7 @@ function drawMatrix(matrix, offset, ctx = context) {
 const arena = createMatrix(12, 20);
 
 const player = {
-    pos: {x: 0, y: 0},
+    pos: { x: 0, y: 0 },
     matrix: null,
     nextMatrix: null,
     score: 0,
@@ -107,7 +107,7 @@ function collide(arena, player) {
     for (let y = 0; y < m.length; ++y) {
         for (let x = 0; x < m[y].length; ++x) {
             if (m[y][x] !== 0 &&
-               (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) {
+                (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) {
                 return true;
             }
         }
@@ -129,18 +129,18 @@ function draw() {
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    drawMatrix(arena, {x: 0, y: 0});
+    drawMatrix(arena, { x: 0, y: 0 });
     drawMatrix(player.matrix, player.pos);
 }
 
 function drawNext() {
     nextContext.fillStyle = '#000';
     nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
-    
+
     // Center the piece
-    let offset = {x: 1, y: 1};
-    if (player.nextMatrix.length === 2) offset = {x: 1, y: 1}; // O piece
-    if (player.nextMatrix.length === 4) offset = {x: 0, y: 0}; // I piece
+    let offset = { x: 1, y: 1 };
+    if (player.nextMatrix.length === 2) offset = { x: 1, y: 1 }; // O piece
+    if (player.nextMatrix.length === 4) offset = { x: 0, y: 0 }; // I piece
 
     drawMatrix(player.nextMatrix, offset, nextContext);
 }
@@ -187,18 +187,19 @@ function playerReset() {
     }
     player.matrix = player.nextMatrix;
     player.nextMatrix = createPiece(pieces[pieces.length * Math.random() | 0]);
-    
+
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
 
     if (collide(arena, player)) {
+        checkHighScore();
         arena.forEach(row => row.fill(0));
         player.score = 0;
         player.level = 1;
         player.lines = 0;
         updateScore();
     }
-    
+
     drawNext();
 }
 
@@ -224,9 +225,9 @@ function rotate(matrix, dir) {
                 matrix[x][y],
                 matrix[y][x],
             ] = [
-                matrix[y][x],
-                matrix[x][y],
-            ];
+                    matrix[y][x],
+                    matrix[x][y],
+                ];
         }
     }
 
@@ -254,7 +255,7 @@ function arenaSweep() {
         player.lines++;
         rowCount *= 2;
     }
-    
+
     player.level = Math.floor(player.lines / 5) + 1;
     dropInterval = Math.max(100, 1000 - (player.level - 1) * 100);
 }
@@ -262,6 +263,24 @@ function arenaSweep() {
 function updateScore() {
     document.getElementById('score').innerText = player.score;
     document.getElementById('level').innerText = player.level;
+
+    // Check if current score beat highscore to update visually
+    const highscore = localStorage.getItem('tetris-highscore') || 0;
+    if (player.score > highscore) {
+        document.getElementById('highscore').innerText = player.score;
+    }
+}
+
+function checkHighScore() {
+    const highscore = localStorage.getItem('tetris-highscore') || 0;
+    if (player.score > highscore) {
+        localStorage.setItem('tetris-highscore', player.score);
+    }
+}
+
+function initHighScore() {
+    const highscore = localStorage.getItem('tetris-highscore') || 0;
+    document.getElementById('highscore').innerText = highscore;
 }
 
 // Keyboard controls
@@ -298,10 +317,10 @@ let currentEra = 0;
 
 function changeEra() {
     currentEra = (currentEra + 1) % eras.length;
-    
+
     // Update body class
     document.body.className = eras[currentEra].class;
-    
+
     // Update title
     document.getElementById('era-title').innerText = "Era: " + eras[currentEra].title;
 }
@@ -315,7 +334,7 @@ function updateClock() {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-    
+
     document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
 }
 
@@ -323,6 +342,7 @@ setInterval(updateClock, 1000);
 updateClock();
 
 // Start Game
+initHighScore();
 playerReset();
 updateScore();
 update();

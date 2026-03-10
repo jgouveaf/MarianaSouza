@@ -34,7 +34,7 @@ body {
 #era-title {
     font-size: 24px;
     margin-bottom: 5px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     transition: text-shadow 1s ease;
 }
 
@@ -65,7 +65,8 @@ body {
     transition: all 1s ease;
 }
 
-#score, #level {
+#score,
+#level {
     font-size: 20px;
     font-weight: bold;
 }
@@ -97,27 +98,61 @@ button {
     border: none;
     transition: all 0.2s ease;
 }
+
 button:active {
     transform: scale(0.9);
+}
+
+#footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#github-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: inherit;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+#github-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+#highscore {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 /* === ERAS THEMES === */
 
 /* Era 1: Stone Age */
 body.era-1 {
-    background: #3e3e3e; /* Dark stone */
+    background: #3e3e3e;
+    /* Dark stone */
     color: #e0d5c1;
     font-family: 'VT323', monospace;
 }
+
 body.era-1 #game-container {
     background: #2a2a2a;
     border: 5px solid #5a5a5a;
     box-shadow: 10px 10px 0 #1a1a1a;
 }
+
 body.era-1 .info-box {
     background: #4a4a4a;
     border: 2px solid #6a6a6a;
 }
+
 body.era-1 button {
     background: #5a5a5a;
     color: #e0d5c1;
@@ -126,24 +161,29 @@ body.era-1 button {
 
 /* Era 2: Medieval / Renaissance */
 body.era-2 {
-    background: #5c4033; /* Wood */
+    background: #5c4033;
+    /* Wood */
     color: #f4e4bc;
     font-family: 'Georgia', serif;
 }
+
 body.era-2 #game-container {
     background: #3e2819;
     border: 5px solid #8b5a2b;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
 }
+
 body.era-2 .info-box {
     background: #4e3422;
     border: 2px solid #bc8f8f;
 }
+
 body.era-2 button {
     background: #8b5a2b;
     color: #f4e4bc;
     border: 2px solid #cd853f;
 }
+
 body.era-2 #clock {
     font-style: italic;
 }
@@ -151,18 +191,22 @@ body.era-2 #clock {
 /* Era 3: Industrial / Steampunk */
 body.era-3 {
     background: #2b2520;
-    color: #cc9933; /* Brass/Gold */
+    color: #cc9933;
+    /* Brass/Gold */
     font-family: 'Times New Roman', Times, serif;
 }
+
 body.era-3 #game-container {
     background: #1a1612;
     border: 5px solid #8a6327;
     box-shadow: 0 0 15px #cc9933;
 }
+
 body.era-3 .info-box {
     background: #3d2f23;
     border: 2px dashed #b58830;
 }
+
 body.era-3 button {
     background: #8a6327;
     color: #1a1612;
@@ -177,18 +221,31 @@ body.era-4 {
     color: #ff00ff;
     font-family: 'Press Start 2P', cursive;
 }
-body.era-4 span, p, h1, div { font-family: 'Share Tech Mono'; }
-body.era-4 #era-title { font-family: 'Press Start 2P', cursive; font-size: 16px; }
+
+body.era-4 span,
+p,
+h1,
+div {
+    font-family: 'Share Tech Mono';
+}
+
+body.era-4 #era-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+}
+
 body.era-4 #game-container {
     background: rgba(0, 0, 0, 0.7);
     border: 4px solid #00ffff;
     box-shadow: 0 0 10px #00ffff, inset 0 0 10px #ff00ff;
 }
+
 body.era-4 .info-box {
     background: transparent;
     border: 2px solid #ff00ff;
     box-shadow: 0 0 5px #ff00ff;
 }
+
 body.era-4 button {
     background: #00ffff;
     color: #000;
@@ -202,24 +259,28 @@ body.era-5 {
     color: #00ffcc;
     font-family: 'Share Tech Mono', monospace;
 }
+
 body.era-5 #game-container {
     background: rgba(0, 15, 30, 0.9);
     border: 1px solid #00ffcc;
-    box-shadow: 0 0 20px rgba(0,255,204,0.4);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
     border-radius: 20px;
     backdrop-filter: blur(10px);
 }
+
 body.era-5 .info-box {
     background: rgba(0, 255, 204, 0.1);
     border: 1px solid rgba(0, 255, 204, 0.5);
     border-radius: 10px;
 }
+
 body.era-5 button {
     background: transparent;
     color: #00ffcc;
     border: 1px solid #00ffcc;
     border-radius: 10px;
 }
+
 body.era-5 button:hover {
     background: #00ffcc;
     color: #000;
@@ -230,6 +291,7 @@ body.era-5 button:hover {
         flex-direction: column;
         align-items: center;
     }
+
     #info {
         flex-direction: row;
     }
