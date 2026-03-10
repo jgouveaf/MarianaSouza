@@ -149,7 +149,11 @@ let dropCounter = 0;
 let dropInterval = 1000;
 
 let lastTime = 0;
+let isGameOver = false;
+
 function update(time = 0) {
+    if (isGameOver) return;
+
     const deltaTime = time - lastTime;
     lastTime = time;
 
@@ -192,15 +196,34 @@ function playerReset() {
     player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
 
     if (collide(arena, player)) {
-        checkHighScore();
-        arena.forEach(row => row.fill(0));
-        player.score = 0;
-        player.level = 1;
-        player.lines = 0;
-        updateScore();
+        gameOver();
     }
 
     drawNext();
+}
+
+function gameOver() {
+    isGameOver = true;
+    checkHighScore();
+
+    document.getElementById('final-score').innerText = player.score;
+    document.getElementById('final-highscore').innerText = localStorage.getItem('tetris-highscore') || 0;
+    document.getElementById('game-over-overlay').classList.remove('hidden');
+}
+
+function restartGame() {
+    arena.forEach(row => row.fill(0));
+    player.score = 0;
+    player.level = 1;
+    player.lines = 0;
+    isGameOver = false;
+    lastTime = 0;
+
+    document.getElementById('game-over-overlay').classList.add('hidden');
+
+    updateScore();
+    playerReset();
+    update();
 }
 
 function playerRotate(dir) {
@@ -303,6 +326,7 @@ document.getElementById('btn-left').addEventListener('click', () => playerMove(-
 document.getElementById('btn-right').addEventListener('click', () => playerMove(1));
 document.getElementById('btn-down').addEventListener('click', () => playerDrop());
 document.getElementById('btn-rotate').addEventListener('click', () => playerRotate(1));
+document.getElementById('btn-restart').addEventListener('click', () => restartGame());
 
 // === TIME TRAVEL ERAS LOGIC ===
 const eras = [
