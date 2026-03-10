@@ -281,6 +281,11 @@ function arenaSweep() {
 
     player.level = Math.floor(player.lines / 5) + 1;
     dropInterval = Math.max(100, 1000 - (player.level - 1) * 100);
+
+    // Check victory condition: 40 lines!
+    if (player.lines >= 40) {
+        showVictory();
+    }
 }
 
 function updateScore() {
@@ -306,6 +311,15 @@ function initHighScore() {
     document.getElementById('highscore').innerText = highscore;
 }
 
+function showVictory() {
+    isGameOver = true;
+    checkHighScore();
+
+    document.getElementById('victory-score').innerText = player.score;
+    document.getElementById('victory-highscore').innerText = localStorage.getItem('tetris-highscore') || 0;
+    document.getElementById('victory-overlay').classList.remove('hidden');
+}
+
 // Keyboard controls
 document.addEventListener('keydown', event => {
     if (event.keyCode === 37) { // Left
@@ -327,6 +341,10 @@ document.getElementById('btn-right').addEventListener('click', () => playerMove(
 document.getElementById('btn-down').addEventListener('click', () => playerDrop());
 document.getElementById('btn-rotate').addEventListener('click', () => playerRotate(1));
 document.getElementById('btn-restart').addEventListener('click', () => restartGame());
+document.getElementById('btn-play-again').addEventListener('click', () => {
+    document.getElementById('victory-overlay').classList.add('hidden');
+    restartGame();
+});
 
 // === TIME TRAVEL ERAS LOGIC ===
 const eras = [
