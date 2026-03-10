@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos da Mariana</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        body {
+            background-color: #0d0d0d;
+            color: #00ffcc;
+            font-family: 'Share Tech Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+            margin-bottom: 40px;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+            }
+        }
+
+        .game-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background: #1a1a1a;
+            padding: 20px 40px;
+            border: 2px solid #00ffcc;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        a:hover {
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.8);
+            transform: translateY(-5px);
+        }
+
+        .neon-link {
+            border-color: #ff00ff;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+        }
+
+        .neon-link:hover {
+            background: #ff00ff;
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
+        }
+
+        p {
+            margin-top: 50px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🎮 Arcade da Mariana</h1>
+
+    <div class="game-links">
+        <a href="time-travel-tetris/">⏳ Time Travel Tetris</a>
+        <a href="neon-tetris/" class="neon-link">✨ Neon Tetris</a>
+    </div>
+
+    <p>Escolha um dos jogos acima para começar sua aventura!</p>
+
+</body>
+
+</html>
